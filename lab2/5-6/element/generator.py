@@ -20,8 +20,8 @@ class Generator:
         a = 0
         while a == 0:
             a = random.random()
-        a = -time_mean * math.log(a)
-        return a
+
+        return -time_mean * math.log(a)
 
     @staticmethod
     def unif(time_min, time_max):
