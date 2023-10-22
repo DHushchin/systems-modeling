@@ -1,5 +1,6 @@
 import random
 from .generator import Generator
+from termcolor import colored
 
 
 class Element:
@@ -17,22 +18,20 @@ class Element:
         Element.next_id += 1
         self.name = name if name else f"element_{self.id}"
 
-        print(f"id={self.id}")
-
 
     def get_delay(self):
         delay = self.mean_delay
         
-        # if self.distribution == "exp":
-        #     delay = Generator.exp(self.mean_delay)
-        # elif self.distribution == "norm":
-        #     delay = Generator.norm(self.mean_delay, 1)
-        # elif self.distribution == "unif":
-        #     delay = Generator.unif(0, 2 * self.mean_delay)
-        # elif self.distribution == "empiric":
-        #     delay = Generator.empiric([1, 2, 3], [0.2, 0.5, 0.3])
-        # else:
-        #     raise Exception("Unknown distribution")
+        if self.distribution == "exp":
+            delay = Generator.exp(self.mean_delay)
+        elif self.distribution == "norm":
+            delay = Generator.norm(self.mean_delay, 1)
+        elif self.distribution == "unif":
+            delay = Generator.unif(0, 2 * self.mean_delay)
+        elif self.distribution == "empiric":
+            delay = Generator.empiric([1, 2, 3], [0.2, 0.5, 0.3])
+        else:
+            raise Exception("Unknown distribution")
 
         return delay
 
@@ -49,8 +48,9 @@ class Element:
 
 
     def print_result(self):
-        print(self.name)
-        print(f"Processed = {self.processed} \n")
+        print()
+        print(colored(self.name, "green"))
+        print(f"Processed = {self.processed}")
 
 
     def print_info(self):

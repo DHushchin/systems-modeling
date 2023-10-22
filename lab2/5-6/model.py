@@ -1,4 +1,5 @@
 from element import Process
+from termcolor import colored
 
 class Model:
     def __init__(self, elements):
@@ -16,11 +17,11 @@ class Model:
             self.tnext = float('inf')
 
             for elem in self.elements:
-                if elem.tnext < self.tnext:
+                if elem.tnext <= self.tnext:
                     self.tnext = elem.tnext
                     self.event = elem.id
-
-            print(f"\nIt's time for event in {self.elements[self.event].name}, time = {self.tnext}")
+            
+            # print(f"\nIt's time for event in {self.elements[self.event].name}, time = {self.tnext}")
 
             for elem in self.elements:
                 elem.do_statistics(self.tnext - self.tcurr)
@@ -30,11 +31,12 @@ class Model:
             for elem in self.elements:
                 elem.tcurr = self.tcurr
 
-            self.elements[self.event].out_act() # ?
-
+            print()
             for elem in self.elements:
                 if elem.tnext == self.tcurr:
+                    print(colored(f"It's time for event in {elem.name}, time = {self.tcurr}", 'yellow'))
                     elem.out_act()
+            print()
 
             for el in self.elements:
                 el.print_info()
@@ -57,10 +59,10 @@ class Model:
                 avg_process_time = elem.total_process_time / self.total_time
                 avg_worker_process_time = avg_process_time / len(elem.workers)
                 
-                print(f"Mean length of queue = {mean}") 
-                print(f"Failures = {elem.failures}")
-                print(f"Failure probability = {failure_prob}")
-                print(f"Mean process time {avg_process_time}")
-                print(f"Average worker process time {avg_worker_process_time}\n\n")
+                print(f"Mean length of queue = {round(mean, 2)}") 
+                print(f"Failures = {round(elem.failures, 2)}")
+                print(f"Failure probability = {round(failure_prob, 2)}")
+                print(f"Mean process time {round(avg_process_time, 2)}")
+                print(f"Average worker process time {round(avg_worker_process_time, 2)}")
         
-        print(f"Total failures = {total_failures}")
+        print(f"\nTotal failures = {total_failures}\n")

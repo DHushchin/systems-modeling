@@ -28,7 +28,7 @@ class Process(Element):
             delay = self.get_delay()
             free_worker.tnext = self.tcurr + delay
             self.total_process_time += delay
-            self.t_next = free_worker.tnext
+            self.tnext = free_worker.tnext
         elif self.queue < self.max_queue:
             self.queue += 1
         else:
@@ -36,6 +36,7 @@ class Process(Element):
 
 
     def out_act(self):
+        super().out_act()
         busy_worker = self.get_busy_worker()
 
         assert busy_worker is not None
@@ -49,9 +50,9 @@ class Process(Element):
             self.queue -= 1
             busy_worker.status = "busy"
             delay = self.get_delay()
-            busy_worker.tnext = self.get_tcurr() + delay
+            busy_worker.tnext = self.tcurr + delay
             self.total_process_time += delay
-            self.tnext = min(worker_tnext_values)
+            self.tnext = min([w.tnext for w in self.workers])
 
         next_element = self.get_next_element()
 
