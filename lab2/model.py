@@ -1,5 +1,5 @@
-from element import Process
 from termcolor import colored
+from element import Process
 
 class Model:
     def __init__(self, elements):
@@ -20,8 +20,6 @@ class Model:
                 if elem.tnext <= self.tnext:
                     self.tnext = elem.tnext
                     self.event = elem.id
-            
-            # print(f"\nIt's time for event in {self.elements[self.event].name}, time = {self.tnext}")
 
             for elem in self.elements:
                 elem.do_statistics(self.tnext - self.tcurr)
@@ -62,7 +60,7 @@ class Model:
                 print(f"Mean length of queue = {round(mean, 2)}") 
                 print(f"Failures = {round(elem.failures, 2)}")
                 print(f"Failure probability = {round(failure_prob, 2)}")
-                print(f"Mean process time {round(avg_process_time, 2)}")
+                print(f"Average element process time {round(avg_process_time, 2)}")
                 print(f"Average worker process time {round(avg_worker_process_time, 2)}")
         
         print(f"\nTotal failures = {total_failures}\n")

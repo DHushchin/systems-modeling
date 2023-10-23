@@ -1,7 +1,7 @@
 import random
-from .generator import Generator
 from termcolor import colored
 
+from element.generator import Generator
 
 class Element:
     next_id = 0
