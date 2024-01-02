@@ -50,6 +50,13 @@ def tasks_3_4():
         process3_failure_probability = round(process3_failures / (process3_num + process3_failures), 2)
 
         data = {
+            "create_delay": [create_delay[i]],
+            "process1_delay": [process1_delay[i]],
+            "process2_delay": [process2_delay[i]],
+            "process3_delay": [process3_delay[i]],
+            "process1_max_queue": [process1_max_queue[i]],
+            "process2_max_queue": [process2_max_queue[i]],
+            "process3_max_queue": [process3_max_queue[i]],
             "create_num": [create_num],
             "process1_num": [process1_num],
             "process2_num": [process2_num],
@@ -65,7 +72,6 @@ def tasks_3_4():
         result = pd.concat([result, pd.DataFrame(data)], ignore_index=True)
 
     result.to_csv("result.csv")
-
 
 
 def tasks_5_6():
@@ -88,5 +94,5 @@ def tasks_5_6():
 
 if __name__ == "__main__":
     # tasks_1_2()
-    tasks_3_4()
-    # tasks_5_6()
+    # tasks_3_4()
+    tasks_5_6()
